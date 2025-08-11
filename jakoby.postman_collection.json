@@ -1,0 +1,70 @@
+{
+	"info": {
+		"_postman_id": "38dc40b7-45a6-43a1-a44b-05b44e52621a",
+		"name": "jakoby",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17216915"
+	},
+	"item": [
+		{
+			"name": "jakoby_post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test the status code\r",
+							"pm.test(\"Status code is 201 Created\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"// Test a property in the response body\r",
+							"pm.test(\"Response body contains the correct title\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    pm.expect(responseData.title).to.eql(\"Postman is great\");\r",
+							"});\r",
+							"\r",
+							"// Check if a newly created post has an ID\r",
+							"pm.test(\"Response body has a new ID\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    pm.expect(responseData.id).to.be.a('number');\r",
+							"});\r",
+							"\r",
+							"// Set a variable for the next request\r",
+							"const responseData = pm.response.json();\r",
+							"pm.environment.set(\"newly_created_post_id\", responseData.id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"my new post\",\r\n  \"body\": \"this is the body of my post\",\r\n  \"userId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
